@@ -1,0 +1,35 @@
+scalar Date
+
+type Schedule {
+    id: ID!
+    accountId: Int!
+    agentId: Int!
+    startTime: Date!
+    endTime: Date!
+}
+
+input NewSchedule {
+    accountId: Int!
+    agentId: Int!
+    startTime: Date!
+    endTime: Date!
+}
+
+input UpdateSchedule {
+    id: ID!
+    accountId: Int!
+    agentId: Int!
+    startTime: Date!
+    endTime: Date!
+}
+
+type Query {
+    schedules: [Schedule]!
+    schedule(id: ID!): Schedule
+}
+
+type Mutation {
+    createSchedule(input: NewSchedule!): Schedule!
+    updateSchedule(input: UpdateSchedule!): Schedule
+    deleteSchedule(id: ID!): Schedule
+}

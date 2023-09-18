@@ -1,0 +1,38 @@
+scalar Date
+
+type Task {
+    id: ID
+    accountId: Int
+    scheduleId: String
+    startTime: Date
+    duration: Int
+    type: String
+}
+
+input NewTask {
+    accountId: Int!
+    scheduleId: String!
+    startTime: Date!
+    duration: Int!
+    type: String!
+}
+
+input UpdateTask {
+    id: ID!
+    accountId: Int!
+    scheduleId: String!
+    startTime: Date!
+    duration: Int!
+    type: String!
+}
+
+type Query {
+    tasks: [Task]!
+    task(id: ID!): Task
+}
+
+type Mutation {
+    createTask(input: NewTask!): Task
+    updateTask(input: UpdateTask!): Task
+    deleteTask(id: ID!): Task
+}
