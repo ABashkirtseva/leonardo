@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Schedule {
+  id        String  @id @default(uuid())
+  accountId Int
+  agentId   Int
+  startTime DateTime
+  endTime   DateTime
+  tasks     Task[]
+
+  @@map("schedules")
+}
+
+enum TaskType {
+  BREAK
+  WORK
+}
+
+model Task {
+  id         String  @id @default(uuid())
+  accountId  Int
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+  startTime  DateTime
+  duration   Int
+  type       TaskType @map("type")
+
+  @@map("tasks")
+}
